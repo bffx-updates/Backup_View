@@ -22,7 +22,7 @@ num relance como cada preset está configurado. Nada sai do navegador.
      extras (PC/CC, `EXP` no valor 128). Fica à direita do MODELO e desce pra
      uma linha própria em telas estreitas.
    - **Cabeçalho do preset** — tag, nome, ATIVO/DESATIVADO, aviso de banco
-     desligado e, com layer 2, o seletor LAYER 1 / LAYER 2.
+     desligado e, com layer 2, o chip DUAL LAYER e o seletor LAYER 1 / LAYER 2.
    - **Um card por footswitch** (1-2-3 à esquerda, 4-5-6 à direita), em dois
      andares. Em cima: número, barra na cor do LED, o tile no estado em que o
      SW nasce na chamada do preset, o MODO em letra grande (encolhe até caber
@@ -73,8 +73,29 @@ O desenho segue uma imagem de referência do usuário feita a **1728 px** de
 largura (fundo azul-escuro com brilho laranja nos cantos, card MODELO com borda
 laranja, etc.). Pra manter a proporção em qualquer tela, **todo tamanho é em
 `rem`** e o `html` tem `font-size: clamp(11px, 100vw / 108, 16px)` — 16 px a
-1728 px, encolhendo junto com a janela até 11 px. Abaixo de ~1100 px o card
-PRINCIPAL desce pra uma linha própria, abaixo de 1000 px os SWs viram uma
-coluna só, e abaixo de 720 px entra o layout de celular. O pedal desenhado no
-card MODELO (`deviceSvg`) é **ilustração decorativa em SVG**, não foto do
-produto; o texto impresso nele sai do nome da placa.
+1728 px, encolhendo junto com a janela até 11 px. Abaixo de 1240 px o card
+PRINCIPAL desce pra uma linha própria e os SWs viram uma coluna só (os dois no
+mesmo ponto, para a lista manter a grade 2×3 da referência num notebook de
+1280), abaixo de 720 px entra o layout de celular e abaixo de 600 px as opções
+de cada SW descem para baixo do texto. O pedal desenhado no card MODELO
+(`deviceSvg`) é **ilustração decorativa em SVG**, não foto do produto; o texto
+impresso nele sai do nome da placa.
+
+**Refino de 25/set/2026** (mesma composição, mais robusta):
+- **Piso de 11 px** em todo texto pequeno (`max(11px, …rem)`): com o rem a
+  11 px, rótulos como DISPARA/LED chegavam a 7,5 px. Por isso os tiles de
+  opção têm largura mínima de 61 px, e a linha MIDI cabe em até 2 linhas, com
+  o `+N` colado à reticência (`fitMidi`, que corta o texto em JS).
+- A linha de cima tem **altura igual** nos três cards e abrir EXTRAS só aumenta
+  o PRINCIPAL. O nome da placa encolhe pelo número de letras (`--len`) até
+  caber inteiro.
+- Cores puxadas para o **azul-ardósia** da referência; bordas com luz vinda do
+  topo, menos no MODELO, cuja moldura laranja é mais acesa nos cantos superior
+  esquerdo e inferior direito.
+- O topo fica numa linha só a partir de 900 px (nome do arquivo com
+  reticência) e deixa de ser fixo no celular.
+- Estados distintos: tecla **tracejada** = slot fora do backup, **hachurada** =
+  preset desativado. O chip do cabeçalho virou **DUAL LAYER** (o termo do
+  editor), e placa fora do catálogo mostra `CHIP ?`.
+- Teclado: foco visível em tudo, foco preservado a cada troca de preset,
+  `aria-pressed`/`aria-expanded` nos controles.
