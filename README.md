@@ -109,8 +109,8 @@ impresso nele sai do nome da placa.
 
 ## LOG VIEW (06/nov/2026)
 
-Botão **LOG VIEW** no topo: troca a página pela telemetria da **caixa-preta** do
-firmware (`DIAG_RECORDER.h`, a partir da 15.6 republicada em 06/nov/2026). A página
+Botão **LOG VIEW** no topo: troca a página pela telemetria da **blackbox** do
+firmware (`BLACKBOX.h`, a partir da 15.6 republicada em 06/nov/2026). A página
 lê a linha `DIAG-JSON {...}` que o firmware põe no fim do `GET /log` — o editor já
 guarda esse texto no backup, chave `boot_log`. Também abre o **texto puro** do
 `/log` ou do `/diag` salvo da controladora (`.txt`), que entra direto no LOG VIEW.
