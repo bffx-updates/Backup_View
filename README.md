@@ -20,7 +20,14 @@ num relance como cada preset está configurado. Nada sai do navegador.
      principal (com o nome amigável quando o pedal tem), CANAL (`OFF` = não
      envia) e o botão EXTRAS com a contagem; clicar abre a lista dos envios
      extras (PC/CC, `EXP` no valor 128). Fica à direita do MODELO e desce pra
-     uma linha própria em telas estreitas.
+     uma linha própria em telas estreitas. Embaixo do canal (ou ao lado, com o
+     card largo) vem o aparelho que o MODO AMIGÁVEL põe naquele canal, ou
+     `SEM APARELHO`.
+   - **MODO AMIGÁVEL** — faixa com um chip por canal que tem aparelho
+     (`CH 1 · VALETON GP-5`, USER 1/2/3 com o nome dado pelo usuário); o canal do
+     PC do preset na tela fica aceso. Backup com o pedal único antigo
+     (`match_mode`) mostra `TODOS OS CANAIS`; sem aparelho nenhum, `NENHUM
+     APARELHO`. É config global: a mesma em todos os presets.
    - **Cabeçalho do preset** — tag, nome, ATIVO/DESATIVADO, aviso de banco
      desligado e, com layer 2, o chip DUAL LAYER e o seletor LAYER 1 / LAYER 2.
    - **Um card por footswitch** (1-2-3 à esquerda, 4-5-6 à direita), em dois
@@ -51,7 +58,7 @@ A versão anterior — abas GLOBAIS/PRESETS, prévia de tela, edição do
 
 | Arquivo | O que é |
 |---|---|
-| `index.html` | A página inteira (HTML + CSS + JS). Tabelas do firmware/editor copiadas à mão: paleta de display, modelos, `SW_MODE_IDS`, `MATCH_MODE_PEDAL`. |
+| `index.html` | A página inteira (HTML + CSS + JS). Tabelas do firmware/editor copiadas à mão: paleta de display, modelos, `SW_MODE_IDS`, `MATCH_MODE_OPTIONS` (nomes) e `MATCH_MODE_PEDAL`. |
 | `index_completo.html` | A versão anterior, com globais, presets detalhados e edição. |
 | `data.js` | **GERADO** por `build.mjs`: os ícones compilados (`webApp/icons/sw/`) em base64 + `PC_LABELS`/`CC_LABELS` (`webApp/pedal_labels.js`) + Kemper NRPN + GP-5. |
 | `build.mjs` | Regenera `data.js`. Rodar na raiz do repo: `node "Backup View/build.mjs"`. |
@@ -99,3 +106,27 @@ impresso nele sai do nome da placa.
   editor), e placa fora do catálogo mostra `CHIP ?`.
 - Teclado: foco visível em tudo, foco preservado a cada troca de preset,
   `aria-pressed`/`aria-expanded` nos controles.
+
+## LOG VIEW (06/nov/2026)
+
+Botão **LOG VIEW** no topo: troca a página pela telemetria da **caixa-preta** do
+firmware (`DIAG_RECORDER.h`, a partir da 15.6 republicada em 06/nov/2026). A página
+lê a linha `DIAG-JSON {...}` que o firmware põe no fim do `GET /log` — o editor já
+guarda esse texto no backup, chave `boot_log`. Também abre o **texto puro** do
+`/log` ou do `/diag` salvo da controladora (`.txt`), que entra direto no LOG VIEW.
+
+Mostra, de cima pra baixo: diagnóstico automático (o que aconteceu, por que e o
+que fazer), resumo em números, linha do tempo por boot, gráficos minuto a minuto,
+histogramas do tempo de volta do loop e do atraso das pisadas, tempo por fase nas
+voltas lentas, períodos de lentidão, travamentos gravados na NVS, eventos e o
+relatório em texto.
+
+- **Contrato**: a ordem dos arrays (`ev`, `ep`, `min`, `stalls`) é a do
+  `diag_report_json` (`"v":1`). Mudou lá, mude o `lvParse` aqui; arquivo com `v`
+  maior mostra o aviso de página desatualizada.
+- **Diagnósticos**: `lvDiagnose`, uma regra por bloco (`add(sev, título, texto,
+  o que fazer)`), em ordem de gravidade.
+- **Cores**: fases com a paleta categórica do modo escuro, girada em 3 posições
+  (validada pelo validador de paleta); estados (OK/ATENÇÃO/IMPORTANTE/CRÍTICO)
+  sempre com ícone e rótulo.
+- A cópia em `Site/backup-view/index.html` é idêntica: mudou aqui, copie lá.
