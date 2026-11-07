@@ -124,6 +124,15 @@ minuto e por área). Tudo o que segue abaixo fica atrás do botão **AVANÇADOS*
 (estado lembrado no `localStorage`, chave `bv_lv_adv`). As regras de estado moram
 em `lvHealth` (por área) e `LV_STRIP` (por minuto): limiar novo entra ali.
 
+**Demora normal não é falha (07/nov/2026)**: volta lenta explicada por uma
+operação com tempo conhecido — carregar o editor, ler a imagem de fundo, gravar
+preset ou config, fazer backup, ligar a controladora, atender o editor pelo cabo,
+trocar de preset — dentro do tempo esperado sai da conta (`e.exp` em cada período
+lento, `lvEpExpect`). As tabelas são `LV_EXPECT_ROUTES` (começo da rota HTTP →
+tempo normal máximo) e `LV_EXPECT_SUB` (sub-fase dominante → tempo normal). Acima
+do tempo, ou parada de 3 s ou mais, continua sendo problema. No AVANÇADOS os
+períodos normais aparecem com o selo NORMAL e em azul na linha do tempo.
+
 No AVANÇADOS, de cima pra baixo: diagnóstico automático (o que aconteceu, por que e o
 que fazer), resumo em números, linha do tempo por boot, gráficos minuto a minuto,
 histogramas do tempo de volta do loop e do atraso das pisadas, tempo por fase nas
