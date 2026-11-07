@@ -115,7 +115,16 @@ lê a linha `DIAG-JSON {...}` que o firmware põe no fim do `GET /log` — o edi
 guarda esse texto no backup, chave `boot_log`. Também abre o **texto puro** do
 `/log` ou do `/diag` salvo da controladora (`.txt`), que entra direto no LOG VIEW.
 
-Mostra, de cima pra baixo: diagnóstico automático (o que aconteceu, por que e o
+**Painel resumido (07/nov/2026)**: o LOG VIEW abre num painel de saúde — selo
+geral (SAUDÁVEL / ATENÇÃO / CUIDADO / PROBLEMA, com um anel de um gomo por área),
+seis áreas com estado e medidor de faixas verde/amarela/vermelha (Estabilidade,
+Resposta, Footswitches, Wi-Fi, Memória e, com a F1, Armazenamento), **O que fazer**
+com até 3 itens do diagnóstico e a faixa **Minuto a minuto** (um quadrado por
+minuto e por área). Tudo o que segue abaixo fica atrás do botão **AVANÇADOS**
+(estado lembrado no `localStorage`, chave `bv_lv_adv`). As regras de estado moram
+em `lvHealth` (por área) e `LV_STRIP` (por minuto): limiar novo entra ali.
+
+No AVANÇADOS, de cima pra baixo: diagnóstico automático (o que aconteceu, por que e o
 que fazer), resumo em números, linha do tempo por boot, gráficos minuto a minuto,
 histogramas do tempo de volta do loop e do atraso das pisadas, tempo por fase nas
 voltas lentas, períodos de lentidão, travamentos gravados na NVS, eventos e o
