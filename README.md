@@ -115,7 +115,15 @@ lê a linha `DIAG-JSON {...}` que o firmware põe no fim do `GET /log` — o edi
 guarda esse texto no backup, chave `boot_log`. Também abre o **texto puro** do
 `/log` ou do `/diag` salvo da controladora (`.txt`), que entra direto no LOG VIEW.
 
-**Painel resumido (07/nov/2026)**: o LOG VIEW abre num painel de saúde — selo
+**Tela principal simples (07/nov/2026, depois do painel abaixo)**: o dono achou o
+painel com informação demais — o que ele quer é saber se algo está errado. O LOG VIEW
+abre agora num veredito (TUDO CERTO / ATENÇÃO / TEM PROBLEMA) e numa lista de 5–6
+perguntas com resposta direta (`lvChecks` / `lvSimple`): memória interna (heap, com o
+medidor), Wi-Fi travando a controladora, travou ou reiniciou sozinha, footswitches,
+sinal do Wi-Fi e memória de presets. O painel descrito a seguir foi para dentro do
+AVANÇADOS, antes do detalhado.
+
+**Painel por área (no AVANÇADOS)**: o LOG VIEW abria num painel de saúde — selo
 geral (SAUDÁVEL / ATENÇÃO / CUIDADO / PROBLEMA, com um anel de um gomo por área),
 seis áreas com estado e medidor de faixas verde/amarela/vermelha (Estabilidade,
 Resposta, Footswitches, Wi-Fi, Memória e, com a F1, Armazenamento), **O que fazer**
@@ -148,3 +156,19 @@ relatório em texto.
   (validada pelo validador de paleta); estados (OK/ATENÇÃO/IMPORTANTE/CRÍTICO)
   sempre com ícone e rótulo.
 - A cópia em `Site/backup-view/index.html` é idêntica: mudou aqui, copie lá.
+
+## MONITOR (26/nov/2026)
+
+Botão **MONITOR** no topo, ao lado do LOG VIEW. Abre uma tela com os presets do banco
+(seletor A..J) e, ao tocar num preset, mostra todo o MIDI que ele manda:
+
+- **Ao chamar o preset**, na ordem em que sai do pedal: o HEADER (PC principal e extras;
+  extra com valor EXP aparece como destino do pedal de expressão, sem sair na hora), a pausa
+  dos TEMPOS DE DISPARO quando houver, e o que cada footswitch dispara sozinho
+  (DISPARA / COMEÇA), no layer 1 e, com dual layer, no layer 2.
+- **Nos footswitches**: o que cada FS manda em cada gesto (TOQUE, SEGURAR, PISAR DE NOVO,
+  PISAR/SOLTAR), com os valores de liga e desliga.
+
+É só leitura do backup (`monSw`, `monTimeline`, `renderMonitor`). As regras do disparo inicial
+copiam o `swActiveSendInitialMidi` do `SW_BANK.h`: mudou lá, mude aqui. Fora do mapa: Bank
+Select automático do PC, LIVE CC dos perfis e a pausa por canal.
