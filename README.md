@@ -170,5 +170,6 @@ Botão **MONITOR** no topo, ao lado do LOG VIEW. Abre uma tela com os presets do
   PISAR/SOLTAR), com os valores de liga e desliga.
 
 É só leitura do backup (`monSw`, `monTimeline`, `renderMonitor`). As regras do disparo inicial
-copiam o `swActiveSendInitialMidi` do `SW_BANK.h`: mudou lá, mude aqui. Fora do mapa: Bank
-Select automático do PC, LIVE CC dos perfis e a pausa por canal.
+copiam o `swActiveSendInitialMidi` do `SW_BANK.h`: mudou lá, mude aqui. Todo PC aparece como
+o `swBankSendPcLogical` o manda (`monPcSeq`): CC0 = banco e PC; no Kemper CC0 = 0, CC32 = banco
+e PC; na GP-5/GP-50 só o CC0 com o número. Fora do mapa: LIVE CC dos perfis e a pausa por canal.
